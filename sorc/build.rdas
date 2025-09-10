@@ -53,6 +53,11 @@ cp ../_workaround_/RDASApp/sfccorrected/EvalSurfaceTemperature.cc sorc/ufo/src/u
 cp ../_workaround_/RDASApp/sfccorrected/EvalSurfaceTemperature.h sorc/ufo/src/ufo/operators/sfccorrected/EvalSurfaceTemperature.h
 cp ../_workaround_/RDASApp/sfccorrected/ObsSfcCorrectedParameters.h sorc/ufo/src/ufo/operators/sfccorrected/ObsSfcCorrectedParameters.h
 
+# workaround to not crash when writing init.nc
+cp ../_workaround_/RDASApp/sorc/mpas/src/framework/mpas_io.F sorc/mpas/src/framework/mpas_io.F
+cp ../_workaround_/RDASApp/sorc/mpas/src/framework/mpas_io_streams.F sorc/mpas/src/framework/mpas_io_streams.F
+cp ../_workaround_/RDASApp/sorc/mpas/src/framework/mpas_stream_manager.F sorc/mpas/src/framework/mpas_stream_manager.F
+
 # workaround for direct radar refl DA
 # https://github.com/JCSDA-internal/mpas-jedi/pull/1045 by Yongming Wang
 cp ../_workaround_/RDASApp/direct_refl/mpas_fields_mod.F90 sorc/mpas-jedi/src/mpasjedi/Fields/mpas_fields_mod.F90
