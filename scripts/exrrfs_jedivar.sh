@@ -32,7 +32,7 @@ nlevel=$(wc -l < "${zeta_levels}")
 ln -snf "${FIXrrfs}/meshes/${MESH_NAME}.invariant.nc_L${nlevel}_${prefix}"  ./invariant.nc
 mkdir -p graphinfo stream_list
 ln -snf "${FIXrrfs}"/graphinfo/*  graphinfo/
-ln -snf "${FIXrrfs}/stream_list/${PHYSICS_SUITE}"/*  stream_list/
+"${USHrrfs}/link_stream_list.sh" "$start_type"
 ${cpreq} "${FIXrrfs}"/jedi/obsop_name_map.yaml .
 ${cpreq} "${FIXrrfs}"/jedi/keptvars.yaml .
 ${cpreq} "${FIXrrfs}"/jedi/geovars.yaml .
@@ -117,20 +117,6 @@ if [[ ${start_type} == "warm" ]] || [[ ${start_type} == "cold" && ${COLDSTART_CY
   # check the status
   export err=$?
   err_chk
-  #
-  # ncks increments to cold_start IC
-  if [[ ${start_type} == "cold" ]]; then
-    var_list="pressure_p,rho,qv,qc,qr,qi,qs,qg,ni,nr,ng,nc,nifa,nwfa,volg,surface_pressure,theta,u,uReconstructZonal,uReconstructMeridional,refl10cm,w"
-    ncks -O -C -x -v ${var_list} init.nc tmp.nc
-    ncks -A -v ${var_list} ana.nc tmp.nc
-    export err=$?
-    err_chk
-    mv tmp.nc "$(readlink -f init.nc)"
-    mv ana.nc ..
-  else
-    cp "${DATA}"/mpasout.nc "${COMOUT}/jedivar/${WGF}/mpasout.${timestr}.nc"
-  fi
-  #
   # the input/output file are linked from the umbrella directory, so no need to copy
   cp "${DATA}"/jdiag* "${COMOUT}/jedivar/${WGF}"
   cp "${DATA}"/jedivar*.yaml "${COMOUT}/jedivar/${WGF}"

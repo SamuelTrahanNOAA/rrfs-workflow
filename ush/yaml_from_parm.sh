@@ -11,9 +11,6 @@ if [[ "$1" == "jedivar" ]]; then
     sed -i '/- covariance:/{N;/covariance model: SABER/{:a;N;/HYB_WGT_STATIC/!ba;d}}' jedivar.yaml
   fi
   sed -i -e "s/@HYB_WGT_STATIC@/${HYB_WGT_STATIC}/" -e "s/@HYB_WGT_ENS@/${HYB_WGT_ENS}/" jedivar.yaml
-  if [[ "${start_type}" == "cold" ]]; then
-      sed -i '/output:/,/stream name:/{s/mpasout/ana/}' jedivar.yaml
-  fi
   template="jedivar.yaml"
 
 else

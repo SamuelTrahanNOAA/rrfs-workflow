@@ -18,7 +18,6 @@ nlevel=$(wc -l < "${zeta_levels}")
 ln -snf "${FIXrrfs}/meshes/${MESH_NAME}.invariant.nc_L${nlevel}_${prefix}" ./invariant.nc
 mkdir -p graphinfo stream_list
 ln -snf "${FIXrrfs}"/graphinfo/* graphinfo/
-ln -snf "${FIXrrfs}/stream_list/${PHYSICS_SUITE}"/* stream_list/
 ${cpreq} "${FIXrrfs}"/jedi/obsop_name_map.yaml .
 ${cpreq} "${FIXrrfs}"/jedi/keptvars.yaml .
 ${cpreq} "${FIXrrfs}"/jedi/geovars.yaml .
@@ -47,6 +46,8 @@ else
   start_type='warm'
   initial_file='mpasout.nc'
 fi
+# link stream lists
+"${USHrrfs}/link_stream_list.sh" "$start_type"
 # link ensembles to data/ens/
 for i in $(seq -w 001 "${ENS_SIZE}"); do
   ln -snf "${UMBRELLA_PREP_IC_DATA}/mem${i}/${initial_file}" "ens/mem${i}.nc"

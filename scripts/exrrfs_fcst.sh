@@ -42,7 +42,7 @@ nlevel=$(wc -l < "${zeta_levels}")
 ln -snf "${FIXrrfs}/meshes/${MESH_NAME}.invariant.nc_L${nlevel}_${prefix}" ./invariant.nc
 mkdir -p graphinfo stream_list
 ln -snf "${FIXrrfs}"/graphinfo/* graphinfo/
-ln -snf "${FIXrrfs}/stream_list/${PHYSICS_SUITE}"/* stream_list/
+"${USHrrfs}/link_stream_list.sh" "$start_type"
 
 # generate the namelist on the fly
 # do_restart already defined in the above
